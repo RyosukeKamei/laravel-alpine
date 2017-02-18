@@ -43,5 +43,5 @@ application:
   links:
     - db
   # ビルドインサーバを利用
-  working_dir: /var/www/html/laravel/public
+  working_dir: /var/www/html/project/public
   command: php -S 0.0.0.0:80
