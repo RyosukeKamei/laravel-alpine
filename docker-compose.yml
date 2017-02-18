@@ -1,0 +1,47 @@
+# dataコンテナ
+# 最近の主流ではない？
+data:
+  container_name: Alpine-data
+  image: alpine
+  stdin_open: true
+  tty: false
+  # docker-composeを実行するフォルダをマウントする
+  volumes:
+    - .:/var/www/html
+  command: /bin/sh
+
+# mysql
+# MySQLはmy.cnfを追加したカスタム版
+db:
+  container_name: Alpine-MySQL-db
+  build: ./docker/mysql
+  volumes_from:
+    - data
+  ports:
+    - "3306:3306"
+  environment:
+    # MySQLのrootパスワード
+    MYSQL_ROOT_PASSWORD: Mm6iR9KY
+    # デフォルトのデータベースとユーザの設定
+    MYSQL_DATABASE: laravel
+    MYSQL_USER: system
+    MYSQL_PASSWORD: Yu4JFkX6
+
+application:
+  container_name: Alpine-Laravel-app
+  # Dockerfileを使いビルド（docker-compose up -dで一発構築）
+  build: ./docker/app
+  tty: false
+  volumes_from:
+    - data
+  expose:
+    - "80"
+  ports:
+    - "80:80"
+  environment:
+    CODEIGNITER_ENV: development
+  links:
+    - db
+  # ビルドインサーバを利用
+  working_dir: /var/www/html/laravel/public
+  command: php -S 0.0.0.0:80
