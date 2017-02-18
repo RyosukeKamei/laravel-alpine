@@ -9,6 +9,5 @@ $ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar --version
 # Laravelをprojectという名前でインストール
 $ php composer.phar create-project laravel/laravel project --prefer-dist
-# もし、Token (hidden): と聞かれる場合はその度にEnterするか事前に
-# GitHubでアクセストークンを取得し、下記を実行
+# もし、Token (hidden): と聞かれる場合はその度にEnterするか事前にGitHubでアクセストークンを取得し、下記を実行
 $ php composer.phar config --global github-oauth.github.com {GitHubで取得したトークン}
