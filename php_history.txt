@@ -1,0 +1,14 @@
+# テスト実行
+$ docker exec -it Laravel-app ./etfcc/vendor/bin/phpunit --configuration ./etfcc/phpunit.xml --group=app
+# プロバイダスクリプト生成（ファサード）
+$ docker exec -it Laravel-app php /var/www/html/etfcc/artisan make:provider CustomerInformationServiceProvider
+# データベースマイグレーション
+$ docker exec -it Laravel-app php /var/www/html/etfcc/artisan migrate
+# データベースマイグレーション ロールバック
+$ docker exec -it Laravel-app php /var/www/html/etfcc/artisan migrate:rollback
+# シーダー実行
+$ docker exec -it Laravel-app php /var/www/html/etfcc/artisan db:seed --class=CustomerTableSeeder
+# テストスクリプト自動生成
+$ docker exec -it Laravel-app php /var/www/html/etfcc/artisan make:test BulkTest
+# モデル・ビュー・コントローラー・マイグレーション・シーダー自動生成
+$ docker exec -it Laravel-app php /var/www/html/etfcc/artisan make:scaffold MailType --schema="mail_type_name:string"
